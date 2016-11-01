@@ -5,6 +5,7 @@
 
 
 ;; ######### Preciate definitions ###########
+
 (defn length1? [coll] (= (count coll) 1))
 (defn length2? [coll] (= (count coll) 2))
 
@@ -14,12 +15,14 @@
 
 
 ;; ######### User defined functions #########
+
 (defn foo [n]
   (inc n))
 
 
 
 ;; ######### Function specs #################
+
 (s/fdef clojure-experiment.spec_error/foo
   :args (s/and ::length-one
                (s/cat :check-number number?)))
@@ -44,7 +47,7 @@
 ;; (foo (foo map))
 ;; (foo (foo (foo (foo map))))
 ;; (foo (foo (foo (foo (foo (foo (foo (foo map))))))))
-;; (odd? map)
+;; (odd? (odd? (odd? map)))
 
 ;; 2. Combinations of different functions - spec errors
 ;; (odd? (foo true)) ; spec error
@@ -56,5 +59,5 @@
 ;; (foo (map foo [1 2 3 true])) ;; standard error
 ;; (doall (foo (map foo [1 2 3 true]))) ;; standard error
 ;; (foo (doall (map foo [1 2 3 true]))) ;; spec error
-
-
+;; (foo (doall (map foo [1 2 3 (range)]))) ;; out of memory
+;; (foo (doall (map foo [1 2 3 (take 10 (range))]))) ;; spec error
